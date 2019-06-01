@@ -29,6 +29,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   FrequenciaCorteService fcs = new FrequenciaCorteService();
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,38 +38,48 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: new SingleChildScrollView(
-          child: new Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            new Text("Resistor(R): ", textScaleFactor: 1),
-            new TextField(
-                onChanged: (t) {
-                  frequenciaCorte.resistor = t == null ? 0 : double.parse(t);
-                },
-                style: new TextStyle(
-                    fontSize: 25.0, height: 1.0, color: Colors.black)),
-            new Text("Capacitor(C): ", textScaleFactor: 1),
-            new TextField(
-                onChanged: (t) {
-                  frequenciaCorte.capacitor = t == null ? 0 : double.parse(t);
-                },
-                style: new TextStyle(
-                    fontSize: 25.0, height: 1.0, color: Colors.black)),
-            new Text("Freq. De Corte", textScaleFactor: 2),
-            new Text(
-                frequenciaCorte.resultado == null
-                    ? '0'
-                    : frequenciaCorte.resultado.toString(),
-                textScaleFactor: 2)
-          ],
-        ),
-      )),
+        child: Form(
+            key: _formKey,
+            child: new Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    new Text("Resistor(R): ", textScaleFactor: 1),
+                    TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Deve ter um número aqui!';
+                          }
+                        },
+                        onSaved: (t) => frequenciaCorte.resistor =
+                            t == null ? 0 : double.parse(t),
+                        style: new TextStyle(
+                            fontSize: 25.0, height: 1.0, color: Colors.black)),
+                    new Text("Capacitor(R): ", textScaleFactor: 1),
+                    TextFormField(
+                        validator: (value) {
+                          if (value.isEmpty) {
+                            return 'Deve ter um número aqui!';
+                          }
+                        },
+                        onSaved: (t) => frequenciaCorte.capacitor =
+                            t == null ? 0 : double.parse(t),
+                        style: new TextStyle(
+                            fontSize: 25.0, height: 1.0, color: Colors.black)),
+                    new Text("Freq. De Corte", textScaleFactor: 2),
+                    new Text(
+                        frequenciaCorte.resultado == null
+                            ? '0'
+                            : frequenciaCorte.resultado.toString(),
+                        textScaleFactor: 2),
+                  ],
+                ))),
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
+            this._formKey.currentState.save();
             frequenciaCorte = fcs.calcular(frequenciaCorte);
           });
         },

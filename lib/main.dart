@@ -31,19 +31,25 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   FrequenciaCorteService fcs = new FrequenciaCorteService();
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
-  final _formKey = GlobalKey<FormState>();
-  TextEditingController resistorController = new TextEditingController();
-  TextEditingController capacitorController = new TextEditingController();
-  List<int> potencias = new List();
+  List<DropdownMenuItem<num>> items = new List();
+  List<num> potencias = new List.from([0, -12, -9, -6, 6, 9]);
+  num potResistor = 0;
+  num potCapacitor = 0;
 
-  List<DropdownMenuItem<int>> getDropDownMenuItems() {
-    List<DropdownMenuItem<int>> items = new List();
-    for (int city in potencias) {
-      // here we are creating the drop down menu items, you can customize the item right here
-      // but I'll just use a simple text for this
-      items.add(new DropdownMenuItem(value: city, child: new Text("")));
-    }
+  List<DropdownMenuItem<num>> getDropDownMenuItems() {
+    items = new List();
+    potencias.forEach((valor) => {
+          items.add(new DropdownMenuItem(
+              value: valor, child: new Text(valor.toString())))
+        });
+
     return items;
+  }
+
+  @override
+  void initState() {
+    items = getDropDownMenuItems();
+    super.initState();
   }
 
   @override
@@ -53,91 +59,80 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: new SingleChildScrollView(
-          child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Form(
-              key: _formKey,
-              child: new Padding(
-                  padding: const EdgeInsets.all(30.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      new Text("Resistor(R): ", textScaleFactor: 1),
-                      TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Deve ter um número aqui!';
-                            }
-                          },
-                          controller: resistorController,
-                          onSaved: (t) => frequenciaCorte.resistor =
-                              t == null ? 0 : double.parse(t),
-                          style: new TextStyle(
-                              fontSize: 25.0,
-                              height: 1.0,
-                              color: Colors.black)),
-                      new Text("Capacitor(R): ", textScaleFactor: 1),
-                      TextFormField(
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'Deve ter um número aqui!';
-                            }
-                          },
-                          controller: capacitorController,
-                          onSaved: (t) => frequenciaCorte.capacitor =
-                              t == null ? 0 : double.parse(t),
-                          style: new TextStyle(
-                              fontSize: 25.0,
-                              height: 1.0,
-                              color: Colors.black)),
-                      new Text("Freq. De Corte", textScaleFactor: 2),
-                      new Text(
-                          frequenciaCorte.resultado == null
-                              ? '0'
-                              : frequenciaCorte.resultado.toString(),
-                          textScaleFactor: 2),
-                    ],
-                  ))),
-          new Row(
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              new Text("Capacitor:"),
-              new Expanded(
-                  child: new TextField(
+          child: new Padding(
+              padding: const EdgeInsets.all(30.0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  new Text("Resistor(R): ", textScaleFactor: 1),
+                  new TextField(
                       onChanged: (t) {
-                        if (t.isNotEmpty) {
-                          this.setState(() {
-                            this.frequenciaCorte.capacitor =
-                                math.pow(10, int.parse(t));
-                          });
-                        }
+                        frequenciaCorte.resistor =
+                            t == null ? 0 : double.parse(t);
                       },
-                      style:
-                          new TextStyle(fontSize: 25.0, color: Colors.black))),
-              new Text("Resistor"),
-              new Expanded(
-                child: new TextField(
-                    onChanged: (t) {
-                        if (t.isNotEmpty) {
-                          this.setState(() {
-                            this.frequenciaCorte.resistor =
-                                math.pow(10, int.parse(t));
-                          });
-                        }
+                      style: new TextStyle(
+                          fontSize: 25.0, height: 1.0, color: Colors.black)),
+                  new Text("Capacitor(C): ", textScaleFactor: 1),
+                  new TextField(
+                      onChanged: (t) {
+                        frequenciaCorte.capacitor =
+                            t == null ? 0 : double.parse(t);
                       },
-                    style: new TextStyle(fontSize: 25.0, color: Colors.black)),
-              )
-            ],
-          ),
-        ],
-      )),
+                      style: new TextStyle(
+                          fontSize: 25.0, height: 1.0, color: Colors.black)),
+                  new Padding(
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
+                      child: new Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          new Text("Capacitor:"),
+                          new Expanded(
+                              child: new DropdownButton(
+                            value: potCapacitor,
+                            items: getDropDownMenuItems(),
+                            onChanged: (t) {
+                              this.setState(() {
+                                potCapacitor = t;
+                              });
+                            },
+                          )),
+                          new Text("Resistor"),
+                          new Expanded(
+                              child: new DropdownButton(
+                            value: potResistor,
+                            items: getDropDownMenuItems(),
+                            onChanged: (t) {
+                              this.setState(() {
+                                potResistor = t;
+                              });
+                            },
+                          ))
+                        ],
+                      )),
+                  new Text("Freq. De Corte", textScaleFactor: 2),
+                  new Text(
+                      frequenciaCorte.resultado == null
+                          ? '0'
+                          : frequenciaCorte.resultado.toString(),
+                      textScaleFactor: 2),
+                ],
+              ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          FrequenciaCorte f = new FrequenciaCorte();
           setState(() {
-            this._formKey.currentState.save();
-            frequenciaCorte = fcs.calcular(frequenciaCorte);
+            if (potCapacitor == null || potResistor == null) {
+              potCapacitor = 0;
+              potResistor = 0;
+            }
+            f.capacitor =
+                math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
+            f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
+            print(f.capacitor);
+            print(f.resistor);
+            frequenciaCorte.resultado = fcs.calcular(f).resultado;
           });
         },
         tooltip: 'CALCULAR',

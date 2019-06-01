@@ -49,16 +49,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   frequenciaCorte.resistor = t == null ? 0 : double.parse(t);
                 },
                 style: new TextStyle(
-                    fontSize: 25.0, height: 1.0, color: Colors.black),
-                keyboardType: TextInputType.number),
+                    fontSize: 25.0, height: 1.0, color: Colors.black)),
             new Text("Capacitor(C): ", textScaleFactor: 1),
             new TextField(
                 onChanged: (t) {
                   frequenciaCorte.capacitor = t == null ? 0 : double.parse(t);
                 },
                 style: new TextStyle(
-                    fontSize: 25.0, height: 1.0, color: Colors.black),
-                keyboardType: TextInputType.number),
+                    fontSize: 25.0, height: 1.0, color: Colors.black)),
             new Text("Freq. De Corte", textScaleFactor: 2),
             new Text(
                 frequenciaCorte.resultado == null

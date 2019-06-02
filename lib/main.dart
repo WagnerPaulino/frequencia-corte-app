@@ -32,7 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   FrequenciaCorteService fcs = new FrequenciaCorteService();
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
   List<DropdownMenuItem<num>> items = new List();
-  List<num> potencias = new List.from([0, -12, -9, -6, 6, 9]);
+  List<num> potencias = new List.from([0, 3, 6, 9, 12, -3, -6, -9, -12]);
   num potResistor = 0;
   num potCapacitor = 0;
 
@@ -44,6 +44,20 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
     return items;
+  }
+
+  calcula() {
+    FrequenciaCorte f = new FrequenciaCorte();
+    if (potCapacitor == null || potResistor == null) {
+      potCapacitor = 0;
+      potResistor = 0;
+    }
+    f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
+    f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
+    print("valor do resistor: " + f.resistor.toString());
+    print("valor do capacitor: " + f.capacitor.toString());
+    frequenciaCorte.resultado = fcs.calcular(f).resultado;
+    f =  new FrequenciaCorte();
   }
 
   @override
@@ -69,7 +83,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.resistor =
-                            t == null ? 0 : double.parse(t);
+                            t.isEmpty ? 0 : double.parse(t);
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black)),
@@ -77,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.capacitor =
-                            t == null ? 0 : double.parse(t);
+                            t.isEmpty ? 0 : double.parse(t);
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black)),
@@ -121,19 +135,12 @@ class _MyHomePageState extends State<MyHomePage> {
               ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          FrequenciaCorte f = new FrequenciaCorte();
-          setState(() {
-            if (potCapacitor == null || potResistor == null) {
-              potCapacitor = 0;
-              potResistor = 0;
-            }
-            f.capacitor =
-                math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
-            f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
-            print(f.capacitor);
-            print(f.resistor);
-            frequenciaCorte.resultado = fcs.calcular(f).resultado;
-          });
+          if (this.frequenciaCorte.capacitor != null &&
+              this.frequenciaCorte.resistor != null) {
+            setState(() {
+              this.calcula();
+            });
+          }
         },
         tooltip: 'CALCULAR',
         child: new Icon(Icons.border_color),

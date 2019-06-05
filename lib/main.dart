@@ -57,8 +57,11 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
     f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
-    f.capacitor2 = math.pow(10, potCapacitor2) * frequenciaCorte.capacitor2;
-    f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
+    if (frequenciaCorte.capacitor2 != null &&
+        frequenciaCorte.resistor2 != null) {
+      f.capacitor2 = math.pow(10, potCapacitor2) * frequenciaCorte.capacitor2;
+      f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
+    }
     frequenciaCorte.resultado = fcs.calcular(f).resultado;
     f = new FrequenciaCorte();
   }
@@ -71,8 +74,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   isEnable() {
     if (frequenciaCorte.capacitor != 0 && frequenciaCorte.resistor != 0) {
-      print(frequenciaCorte.capacitor);
-      print(frequenciaCorte.resistor);
       this.setState(() => this.enabled = true);
     } else {
       this.setState(() => this.enabled = false);
@@ -99,16 +100,16 @@ class _MyHomePageState extends State<MyHomePage> {
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.resistor =
-                            t.isEmpty ? 0 : double.parse(t);
+                            t.isEmpty ? null : double.parse(t);
                         this.isEnable();
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black)),
-                  new Text("Capacitor(C1): ", textScaleFactor: 1),
+                  new Text("Capacitor1(C1): ", textScaleFactor: 1),
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.capacitor =
-                            t.isEmpty ? 0 : double.parse(t);
+                            t.isEmpty ? null : double.parse(t);
                         this.isEnable();
                       },
                       style: new TextStyle(
@@ -117,7 +118,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   new TextField(
                     onChanged: (t) {
                       frequenciaCorte.resistor2 =
-                          t.isEmpty ? 0 : double.parse(t);
+                          t.isEmpty ? null : double.parse(t);
                     },
                     style: new TextStyle(
                         fontSize: 25.0, height: 1.0, color: Colors.black),
@@ -127,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.capacitor2 =
-                            t.isEmpty ? 0 : double.parse(t);
+                            t.isEmpty ? null : double.parse(t);
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black),

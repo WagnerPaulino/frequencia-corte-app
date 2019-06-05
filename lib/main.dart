@@ -35,6 +35,9 @@ class _MyHomePageState extends State<MyHomePage> {
   List<num> potencias = new List.from([0, 3, 6, 9, 12, -3, -6, -9, -12]);
   num potResistor = 0;
   num potCapacitor = 0;
+  num potResistor2 = 0;
+  num potCapacitor2 = 0;
+  bool enabled = false;
 
   List<DropdownMenuItem<num>> getDropDownMenuItems() {
     items = new List();
@@ -54,16 +57,29 @@ class _MyHomePageState extends State<MyHomePage> {
     }
     f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
     f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
-    print("valor do resistor: " + f.resistor.toString());
-    print("valor do capacitor: " + f.capacitor.toString());
+    f.capacitor2 = math.pow(10, potCapacitor2) * frequenciaCorte.capacitor2;
+    f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
     frequenciaCorte.resultado = fcs.calcular(f).resultado;
-    f =  new FrequenciaCorte();
+    f = new FrequenciaCorte();
   }
 
   @override
   void initState() {
     items = getDropDownMenuItems();
     super.initState();
+  }
+
+  isEnable() {
+    if (frequenciaCorte.capacitor != 0 && frequenciaCorte.resistor != 0) {
+      print(frequenciaCorte.capacitor);
+      print(frequenciaCorte.resistor);
+      this.setState(() => this.enabled = true);
+    } else {
+      this.setState(() => this.enabled = false);
+    }
+    if (frequenciaCorte.capacitor == null || frequenciaCorte.resistor == null) {
+      this.setState(() => this.enabled = false);
+    }
   }
 
   @override
@@ -79,47 +95,96 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text("Resistor(R): ", textScaleFactor: 1),
+                  new Text("Resistor1(R1): ", textScaleFactor: 1),
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.resistor =
                             t.isEmpty ? 0 : double.parse(t);
+                        this.isEnable();
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black)),
-                  new Text("Capacitor(C): ", textScaleFactor: 1),
+                  new Text("Capacitor(C1): ", textScaleFactor: 1),
                   new TextField(
                       onChanged: (t) {
                         frequenciaCorte.capacitor =
                             t.isEmpty ? 0 : double.parse(t);
+                        this.isEnable();
                       },
                       style: new TextStyle(
                           fontSize: 25.0, height: 1.0, color: Colors.black)),
+                  new Text("Resistor2(R2): ", textScaleFactor: 1),
+                  new TextField(
+                    onChanged: (t) {
+                      frequenciaCorte.resistor2 =
+                          t.isEmpty ? 0 : double.parse(t);
+                    },
+                    style: new TextStyle(
+                        fontSize: 25.0, height: 1.0, color: Colors.black),
+                    enabled: this.enabled,
+                  ),
+                  new Text("Capacitor2(C2): ", textScaleFactor: 1),
+                  new TextField(
+                      onChanged: (t) {
+                        frequenciaCorte.capacitor2 =
+                            t.isEmpty ? 0 : double.parse(t);
+                      },
+                      style: new TextStyle(
+                          fontSize: 25.0, height: 1.0, color: Colors.black),
+                      enabled: this.enabled),
+                  new Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      new Text("Capacitor: "),
+                      new Expanded(
+                          child: new DropdownButton(
+                        value: potCapacitor,
+                        items: getDropDownMenuItems(),
+                        onChanged: (t) {
+                          this.setState(() {
+                            potCapacitor = t;
+                          });
+                        },
+                      )),
+                      new Text("Resistor: "),
+                      new Expanded(
+                          child: new DropdownButton(
+                        value: potResistor,
+                        items: getDropDownMenuItems(),
+                        onChanged: (t) {
+                          this.setState(() {
+                            potResistor = t;
+                          });
+                        },
+                      ))
+                    ],
+                  ),
                   new Padding(
                       padding: EdgeInsets.fromLTRB(0, 0, 0, 30),
                       child: new Row(
-                        mainAxisSize: MainAxisSize.max,
+                        mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          new Text("Capacitor:"),
+                          new Text("Capacitor2: "),
                           new Expanded(
                               child: new DropdownButton(
-                            value: potCapacitor,
+                            value: potCapacitor2,
                             items: getDropDownMenuItems(),
                             onChanged: (t) {
                               this.setState(() {
-                                potCapacitor = t;
+                                potCapacitor2 = t;
                               });
                             },
                           )),
-                          new Text("Resistor"),
+                          new Text("Resistor2: "),
                           new Expanded(
                               child: new DropdownButton(
-                            value: potResistor,
+                            value: potResistor2,
                             items: getDropDownMenuItems(),
                             onChanged: (t) {
                               this.setState(() {
-                                potResistor = t;
+                                potResistor2 = t;
                               });
                             },
                           ))

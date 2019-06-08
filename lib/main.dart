@@ -43,9 +43,8 @@ class _MyHomePageState extends State<MyHomePage> {
     items = new List();
     potencias.forEach((valor) => {
           items.add(new DropdownMenuItem(
-              value: valor, child: new Text(valor.toString())))
+              value: valor, child: new Text("n^" + valor.toString())))
         });
-
     return items;
   }
 

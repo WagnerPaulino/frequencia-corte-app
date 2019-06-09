@@ -33,11 +33,11 @@ class _MyHomePageState extends State<MyHomePage> {
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
   List<DropdownMenuItem<int>> items = new List();
   Map<int, String> potenciaMap = {
+    0: "Und",
     12: "Tera",
     9: "Giga",
     6: "Mega",
     3: "Quilo",
-    0: "Normal",
     -3: "Mili",
     -6: "Micro",
     -9: "Nano",

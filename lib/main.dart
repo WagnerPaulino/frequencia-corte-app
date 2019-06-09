@@ -31,20 +31,34 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   FrequenciaCorteService fcs = new FrequenciaCorteService();
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
-  List<DropdownMenuItem<num>> items = new List();
-  List<num> potencias = new List.from([0, 3, 6, 9, 12, -3, -6, -9, -12]);
+  List<DropdownMenuItem<int>> items = new List();
+  Map<int, String> potenciaMap = {
+    12: "Tera",
+    9: "Giga",
+    6: "Mega",
+    3: "Quilo",
+    0: "Normal",
+    -3: "Mili",
+    -6: "Micro",
+    -9: "Nano",
+    -12: "Pico"
+  };
+
   num potResistor = 0;
   num potCapacitor = 0;
   num potResistor2 = 0;
   num potCapacitor2 = 0;
   bool enabled = false;
 
-  List<DropdownMenuItem<num>> getDropDownMenuItems() {
+  List<DropdownMenuItem<int>> getDropDownMenuItems() {
     items = new List();
-    potencias.forEach((valor) => {
-          items.add(new DropdownMenuItem(
-              value: valor, child: new Text("n^" + valor.toString())))
+    potenciaMap.forEach((value, label) => {
+          items.add(new DropdownMenuItem(value: value, child: new Text(label)))
         });
+    // for(var entry in potenciaMap.entries) {
+    //   items.add(new DropdownMenuItem(
+    //           value: entry.key, child: new Text(entry.value)));
+    // }
     return items;
   }
 

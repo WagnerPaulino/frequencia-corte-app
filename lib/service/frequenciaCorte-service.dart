@@ -14,6 +14,10 @@ class FrequenciaCorteService {
           frequencia.resistor2;
       frequencia.resultado = 1 / (2 * frequencia.pi * math.sqrt(x));
     }
+    print(frequencia.resistor);
+    print(frequencia.capacitor);
+    print(frequencia.resistor2);
+    print(frequencia.capacitor2);
     return frequencia;
   }
 }

@@ -75,7 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
       f.capacitor2 = math.pow(10, potCapacitor2) * frequenciaCorte.capacitor2;
       f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
     }
-    frequenciaCorte.resultado = fcs.calcular(f).resultado;
+    frequenciaCorte.frequencia = fcs.calcular(f).frequencia;
     f = new FrequenciaCorte();
   }
 
@@ -206,9 +206,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       )),
                   new Text("Freq. De Corte", textScaleFactor: 2),
                   new Text(
-                      frequenciaCorte.resultado == null
+                      frequenciaCorte.frequencia == null
                           ? '0'
-                          : frequenciaCorte.resultado.toString(),
+                          : frequenciaCorte.frequencia.toString(),
                       textScaleFactor: 2),
                 ],
               ))),

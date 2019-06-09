@@ -5,5 +5,5 @@ class FrequenciaCorte {
   double resistor2;
   double capacitor;
   double capacitor2;
-  double resultado;
+  double frequencia;
 }

@@ -1,4 +1,5 @@
 import 'package:calculo/model/frequencia-corte.dart';
+import 'package:calculo/pages/capacitor-page.dart';
 import 'package:calculo/pages/frequencia-corte-page.dart';
 import 'package:calculo/pages/resistor-page.dart';
 import 'package:calculo/service/frequenciaCorte-service.dart';
@@ -38,6 +39,13 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         body: new Center(
             child: Column(children: <Widget>[
+          FlatButton(
+              child: new Text(
+                "Capacitor",
+                textScaleFactor: 2,
+              ),
+              onPressed: () => Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) => new CapacitorPage()))),
           FlatButton(
               child: new Text(
                 "Resistor",

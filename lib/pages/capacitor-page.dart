@@ -1,29 +1,30 @@
 import 'package:calculo/model/frequencia-corte.dart';
-import 'package:calculo/service/resistor-service.dart';
+import 'package:calculo/service/capacitor-service.dart';
 import 'package:calculo/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
-class ResistorPage extends StatefulWidget {
-  ResistorPage({Key key}) : super(key: key);
+class CapacitorPage extends StatefulWidget {
+  CapacitorPage({Key key}) : super(key: key);
 
   @override
-  _ResistorPageState createState() => _ResistorPageState();
+  _CapacitorPageState createState() => _CapacitorPageState();
 }
 
-class _ResistorPageState extends State<ResistorPage> {
+class _CapacitorPageState extends State<CapacitorPage> {
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
-  ResistorService rs = new ResistorService();
+  CapacitorService cs = new CapacitorService();
   num potFrequencia = 0.0;
-  num potCapacitor = 0.0;
+  num potResistor1 = 0.0;
+  num potResistor2 = 0.0;
 
   calcula() {
     FrequenciaCorte f = new FrequenciaCorte();
-    f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
+    f.resistor = math.pow(10, potResistor1) * frequenciaCorte.resistor;
+    f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
     f.frequencia = math.pow(10, potFrequencia) * frequenciaCorte.frequencia;
-    frequenciaCorte.resistor = rs.calcular(f).resistor;
-    frequenciaCorte.resistor2 = rs.calcular(f).resistor2;
+    frequenciaCorte.capacitor = cs.calcular(f).capacitor;
     f = new FrequenciaCorte();
   }
 
@@ -31,7 +32,7 @@ class _ResistorPageState extends State<ResistorPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Resistor'),
+        title: Text('Capacitor'),
       ),
       body: new SingleChildScrollView(
           child: new Padding(
@@ -40,13 +41,19 @@ class _ResistorPageState extends State<ResistorPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  new Text("Capacitor:"),
+                  new Text("Resistor1(R1):"),
                   new TextField(
                     onChanged: (v) {
-                      frequenciaCorte.capacitor = double.parse(v);
+                      frequenciaCorte.resistor = double.parse(v);
                     },
                   ),
-                  new Text("Frequencia de Corte:"),
+                  new Text("Resistor2(R2):"),
+                  new TextField(
+                    onChanged: (v) {
+                      frequenciaCorte.resistor2 = double.parse(v);
+                    },
+                  ),
+                  new Text("Frequencia de Corte(FC):"),
                   new TextField(
                     onChanged: (v) {
                       frequenciaCorte.frequencia = double.parse(v);
@@ -56,17 +63,32 @@ class _ResistorPageState extends State<ResistorPage> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      new Text("Capacitor: "),
+                      new Text("Resistor1: "),
                       new Expanded(
                           child: new DropdownButton(
-                        value: potCapacitor,
+                        value: potResistor1,
                         items: Utils.getDropDownMenuItems(),
                         onChanged: (t) {
                           this.setState(() {
-                            potCapacitor = t;
+                            potResistor1 = t;
                           });
                         },
                       )),
+                      new Text("Resistor2: "),
+                      new Expanded(
+                          child: new DropdownButton(
+                        value: potFrequencia,
+                        items: Utils.getDropDownMenuItems(),
+                        onChanged: (t) {
+                          this.setState(() {
+                            potResistor2 = t;
+                          });
+                        },
+                      )),
+                    ],
+                  ),
+                  new Row(
+                    children: <Widget>[
                       new Text("Frequencia: "),
                       new Expanded(
                           child: new DropdownButton(
@@ -77,26 +99,21 @@ class _ResistorPageState extends State<ResistorPage> {
                             potFrequencia = t;
                           });
                         },
-                      ))
+                      )),
                     ],
                   ),
-                  new Text("Resistor 1:", textScaleFactor: 2),
+                  new Text("Capacitor:", textScaleFactor: 2),
                   new Text(
-                      frequenciaCorte.resistor == null
+                      frequenciaCorte.capacitor == null
                           ? '0'
-                          : frequenciaCorte.resistor.toString(),
-                      textScaleFactor: 2),
-                  new Text("Resistor 2:", textScaleFactor: 2),
-                  new Text(
-                      frequenciaCorte.resistor == null
-                          ? '0'
-                          : frequenciaCorte.resistor2.toString(),
+                          : frequenciaCorte.capacitor.toString(),
                       textScaleFactor: 2),
                 ],
               ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (this.frequenciaCorte.capacitor != null &&
+          if (this.frequenciaCorte.resistor != null &&
+              this.frequenciaCorte.resistor2 != null &&
               this.frequenciaCorte.frequencia != null) {
             setState(() {
               this.calcula();

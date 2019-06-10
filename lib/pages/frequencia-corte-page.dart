@@ -24,10 +24,6 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
 
   calcula() {
     FrequenciaCorte f = new FrequenciaCorte();
-    if (potCapacitor == null || potResistor == null) {
-      potCapacitor = 0;
-      potResistor = 0;
-    }
     f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
     f.resistor = math.pow(10, potResistor) * frequenciaCorte.resistor;
     if (frequenciaCorte.capacitor2 != null &&

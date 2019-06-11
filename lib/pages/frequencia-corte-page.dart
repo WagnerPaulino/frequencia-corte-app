@@ -54,9 +54,6 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Frequencia de Corte'),
-      ),
       body: new SingleChildScrollView(
           child: new Padding(
               padding: const EdgeInsets.all(30.0),

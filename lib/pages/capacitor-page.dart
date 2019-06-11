@@ -31,9 +31,6 @@ class _CapacitorPageState extends State<CapacitorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Capacitor'),
-      ),
       body: new SingleChildScrollView(
           child: new Padding(
               padding: const EdgeInsets.all(30.0),

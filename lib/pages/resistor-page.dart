@@ -30,9 +30,6 @@ class _ResistorPageState extends State<ResistorPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Resistor'),
-      ),
       body: new SingleChildScrollView(
           child: new Padding(
               padding: const EdgeInsets.all(30.0),

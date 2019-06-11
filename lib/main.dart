@@ -16,32 +16,39 @@ getEscolha() {
 class MyApp extends StatelessWidget {
   Widget getDrawerEscolha() {
     return new Drawer(
-      child: new ListView(
-        children: <Widget>[
-          new DrawerHeader(
+        child: new ListView.builder(
+      itemCount: 1,
+      itemBuilder: (BuildContext context, int index) {
+        return new ListBody(
+          children: <Widget>[
+            new DrawerHeader(
             child: new Text("Níveis"),
           ),
           new ListTile(
             title: new Text('Padrão'),
             onTap: () {
               nivel = Nivel.PADRAO;
+              Navigator.pop(context);
             },
           ),
           new ListTile(
             title: new Text('Alta'),
             onTap: () {
               nivel = Nivel.ALTA;
+              Navigator.pop(context);
             },
           ),
           new ListTile(
             title: new Text('Baixa'),
             onTap: () {
               nivel = Nivel.BAIXA;
+              Navigator.pop(context);
             },
           ),
-        ],
-      ),
-    );
+          ],
+        );
+      },
+    ));
   }
 
   @override
@@ -63,6 +70,7 @@ class MyApp extends StatelessWidget {
             drawer: getDrawerEscolha(),
             body: MyHomePage()),
       ),
+      debugShowCheckedModeBanner: false
     );
   }
 }

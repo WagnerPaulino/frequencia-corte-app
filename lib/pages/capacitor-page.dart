@@ -6,7 +6,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class CapacitorPage extends StatefulWidget {
-  CapacitorPage({Key key}) : super(key: key);
+  CapacitorPage({Key key,this.escolha}) : super(key: key);
+  Function escolha;
 
   @override
   _CapacitorPageState createState() => _CapacitorPageState();
@@ -113,6 +114,7 @@ class _CapacitorPageState extends State<CapacitorPage> {
               this.frequenciaCorte.resistor2 != null &&
               this.frequenciaCorte.frequencia != null) {
             setState(() {
+              print(widget.escolha().toString());
               this.calcula();
             });
           }

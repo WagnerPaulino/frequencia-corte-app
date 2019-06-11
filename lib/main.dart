@@ -1,3 +1,4 @@
+import 'package:calculo/enums/niveis.dart';
 import 'package:calculo/model/frequencia-corte.dart';
 import 'package:calculo/pages/capacitor-page.dart';
 import 'package:calculo/pages/frequencia-corte-page.dart';
@@ -6,8 +7,43 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
+var nivel = Nivel.PADRAO;
+
+getEscolha() {
+  return nivel;
+}
 
 class MyApp extends StatelessWidget {
+  Widget getDrawerEscolha() {
+    return new Drawer(
+      child: new ListView(
+        children: <Widget>[
+          new DrawerHeader(
+            child: new Text("Níveis"),
+          ),
+          new ListTile(
+            title: new Text('Padrão'),
+            onTap: () {
+              nivel = Nivel.PADRAO;
+            },
+          ),
+          new ListTile(
+            title: new Text('Alta'),
+            onTap: () {
+              nivel = Nivel.ALTA;
+            },
+          ),
+          new ListTile(
+            title: new Text('Baixa'),
+            onTap: () {
+              nivel = Nivel.BAIXA;
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -24,6 +60,7 @@ class MyApp extends StatelessWidget {
               ),
               title: Text('Calculo'),
             ),
+            drawer: getDrawerEscolha(),
             body: MyHomePage()),
       ),
     );
@@ -44,9 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return TabBarView(
       children: [
-        new FrequenciaCortePage(),
-        new CapacitorPage(),
-        new ResistorPage()
+        new FrequenciaCortePage(escolha: getEscolha),
+        new CapacitorPage(escolha: getEscolha),
+        new ResistorPage(escolha: getEscolha)
       ],
     );
   }

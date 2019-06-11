@@ -1,3 +1,4 @@
+import 'package:calculo/enums/niveis.dart';
 import 'package:calculo/model/frequencia-corte.dart';
 import 'package:calculo/service/resistor-service.dart';
 import 'package:calculo/utils/utils.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class ResistorPage extends StatefulWidget {
-  ResistorPage({Key key}) : super(key: key);
-
+  ResistorPage({Key key, this.escolha}) : super(key: key);
+Function escolha;
   @override
   _ResistorPageState createState() => _ResistorPageState();
 }
@@ -96,6 +97,7 @@ class _ResistorPageState extends State<ResistorPage> {
           if (this.frequenciaCorte.capacitor != null &&
               this.frequenciaCorte.frequencia != null) {
             setState(() {
+              print(widget.escolha().toString());
               this.calcula();
             });
           }

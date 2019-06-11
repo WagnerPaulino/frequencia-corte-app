@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class FrequenciaCortePage extends StatefulWidget {
-  FrequenciaCortePage({Key key}) : super(key: key);
+  FrequenciaCortePage({Key key, this.escolha}) : super(key: key);
+
+Function escolha;
 
   @override
   _FrequenciaCortePageState createState() => _FrequenciaCortePageState();
@@ -169,6 +171,7 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
           if (this.frequenciaCorte.capacitor != null &&
               this.frequenciaCorte.resistor != null) {
             setState(() {
+              print(widget.escolha().toString());
               this.calcula();
             });
           }

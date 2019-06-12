@@ -5,7 +5,7 @@ import 'dart:math' as math;
 
 class ResistorService {
   FrequenciaCorte calcular(FrequenciaCorte c, Nivel escolha) {
-    if (escolha == Nivel.ALTA || escolha == Nivel.PADRAO) {
+    if (escolha == Nivel.ALTA) {
       c = this.resistorPassaAlta(c);
     } else {
       c = this.resistorPassaBaixa(c);
@@ -20,6 +20,7 @@ class ResistorService {
     } else {
       c.resistor = 0;
       c.resistor2 = 0;
+      resultado = 0;
     }
     c.resistor = resultado;
     c.resistor2 = 1.9994 * resultado;
@@ -34,6 +35,7 @@ class ResistorService {
     } else {
       c.resistor = 0;
       c.resistor2 = 0;
+      resultado = 0;
     }
     c.resistor = resultado;
     c.resistor2 = 0;

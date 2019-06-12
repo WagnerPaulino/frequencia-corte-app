@@ -1,3 +1,1 @@
-enum Nivel {
-  PADRAO, ALTA, BAIXA
-}
+enum Nivel { ALTA, BAIXA }

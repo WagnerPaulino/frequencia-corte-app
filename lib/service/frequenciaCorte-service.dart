@@ -6,9 +6,7 @@ import 'dart:math' as math;
 class FrequenciaCorteService {
   FrequenciaCorte calcular(FrequenciaCorte frequencia, Nivel escolha) {
     double x = 0;
-    if (escolha == Nivel.PADRAO) {
-      frequencia = this.frequenciaGeral(frequencia);
-    } else if (escolha == Nivel.ALTA) {
+    if (escolha == Nivel.ALTA) {
       frequencia = this.frequenciaPassaAlta(frequencia);
     } else if (escolha == Nivel.BAIXA) {
       frequencia = this.frequenciaPassaBaixa(frequencia);
@@ -16,32 +14,16 @@ class FrequenciaCorteService {
     return frequencia;
   }
 
-  FrequenciaCorte frequenciaGeral(FrequenciaCorte frequencia) {
-    double x = 0;
-    if (frequencia.capacitor2 == null || frequencia.resistor2 == null) {
-      x = frequencia.capacitor * frequencia.resistor;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * math.sqrt(x));
-    } else {
-      x = frequencia.capacitor *
-          frequencia.resistor *
-          frequencia.capacitor2 *
-          frequencia.resistor2;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * math.sqrt(x));
-    }
-    return frequencia;
-  }
-
   FrequenciaCorte frequenciaPassaAlta(FrequenciaCorte frequencia) {
-    double r = 0;
-    double c = 0;
     double x = 0;
-    if (frequencia.capacitor2 == null || frequencia.resistor2 == null) {
-      x = frequencia.capacitor * frequencia.resistor;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * math.sqrt(x));
+    if (frequencia.capacitor != null &&
+        frequencia.resistor != null &&
+        frequencia.resistor2 != null) {
+      x = frequencia.resistor * frequencia.resistor2;
+      frequencia.frequencia =
+          1 / (2 * frequencia.pi * frequencia.capacitor * math.sqrt(x));
     } else {
-      r = frequencia.resistor * frequencia.resistor2;
-      c = frequencia.capacitor * frequencia.capacitor2;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * c * math.sqrt(r));
+      frequencia.frequencia = 0;
     }
     return frequencia;
   }
@@ -50,13 +32,14 @@ class FrequenciaCorteService {
     double r = 0;
     double c = 0;
     double x = 0;
-    if (frequencia.capacitor2 == null || frequencia.resistor2 == null) {
-      x = frequencia.capacitor * frequencia.resistor;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * math.sqrt(x));
-    } else {
-      r = frequencia.resistor * frequencia.resistor2;
+    if (frequencia.resistor != null &&
+        frequencia.capacitor != null &&
+        frequencia.capacitor2 != null) {
+      r = frequencia.resistor;
       c = frequencia.capacitor * frequencia.capacitor2;
       frequencia.frequencia = 1 / (2 * frequencia.pi * r * math.sqrt(c));
+    } else {
+      frequencia.frequencia = 0;
     }
     return frequencia;
   }

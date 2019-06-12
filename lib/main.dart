@@ -7,7 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
-var nivel = Nivel.PADRAO;
+var nivel = Nivel.ALTA;
 var callbacks = [];
 
 getEscolha() {
@@ -34,14 +34,6 @@ class MyApp extends StatelessWidget {
           children: <Widget>[
             new DrawerHeader(
               child: new Text("Níveis"),
-            ),
-            new ListTile(
-              title: new Text('Padrão'),
-              onTap: () {
-                nivel = Nivel.PADRAO;
-                Navigator.pop(context);
-                callCallbacks();
-              },
             ),
             new ListTile(
               title: new Text('Alta'),

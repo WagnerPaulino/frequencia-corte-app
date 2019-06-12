@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../main.dart';
+
 class FrequenciaCortePage extends StatefulWidget {
   FrequenciaCortePage({Key key, this.escolha}) : super(key: key);
 
@@ -39,8 +41,11 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
 
   @override
   void initState() {
+    callbacks = [];
+    setCallback(this.setState);
     super.initState();
   }
+
 
   isEnable() {
     if (frequenciaCorte.capacitor != 0 && frequenciaCorte.resistor != 0) {

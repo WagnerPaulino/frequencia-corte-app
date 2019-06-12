@@ -8,10 +8,21 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
 var nivel = Nivel.PADRAO;
+var callbacks = [];
 
 getEscolha() {
   return nivel;
 }
+
+setCallback(value) {
+  callbacks.add(value);
+}
+
+callCallbacks() {
+  callbacks.forEach((r) => r((){}));
+}
+
+
 
 class MyApp extends StatelessWidget {
   Widget getDrawerEscolha() {
@@ -29,6 +40,7 @@ class MyApp extends StatelessWidget {
               onTap: () {
                 nivel = Nivel.PADRAO;
                 Navigator.pop(context);
+                callCallbacks();
               },
             ),
             new ListTile(
@@ -36,6 +48,7 @@ class MyApp extends StatelessWidget {
               onTap: () {
                 nivel = Nivel.ALTA;
                 Navigator.pop(context);
+                callCallbacks();
               },
             ),
             new ListTile(
@@ -43,6 +56,7 @@ class MyApp extends StatelessWidget {
               onTap: () {
                 nivel = Nivel.BAIXA;
                 Navigator.pop(context);
+                callCallbacks();
               },
             ),
           ],

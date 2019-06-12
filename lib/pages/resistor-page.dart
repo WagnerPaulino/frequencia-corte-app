@@ -6,6 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import '../main.dart';
+
 class ResistorPage extends StatefulWidget {
   ResistorPage({Key key, this.escolha}) : super(key: key);
   Function escolha;
@@ -26,6 +28,13 @@ class _ResistorPageState extends State<ResistorPage> {
     frequenciaCorte.resistor = rs.calcular(f, widget.escolha()).resistor;
     frequenciaCorte.resistor2 = rs.calcular(f, widget.escolha()).resistor2;
     f = new FrequenciaCorte();
+  }
+
+  @override
+  void initState() {
+    callbacks = [];
+    setCallback(this.setState);
+    super.initState();
   }
 
   @override

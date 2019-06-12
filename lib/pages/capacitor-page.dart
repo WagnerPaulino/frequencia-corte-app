@@ -31,6 +31,13 @@ class _CapacitorPageState extends State<CapacitorPage> {
   }
 
   @override
+  void initState() {
+    callbacks = [];
+    setCallback(this.setState);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: new SingleChildScrollView(

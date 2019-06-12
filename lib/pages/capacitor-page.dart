@@ -1,3 +1,4 @@
+import 'package:calculo/main.dart';
 import 'package:calculo/model/frequencia-corte.dart';
 import 'package:calculo/service/capacitor-service.dart';
 import 'package:calculo/utils/utils.dart';
@@ -6,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
 class CapacitorPage extends StatefulWidget {
-  CapacitorPage({Key key,this.escolha}) : super(key: key);
+  CapacitorPage({Key key, this.escolha}) : super(key: key);
   Function escolha;
 
   @override
@@ -25,7 +26,7 @@ class _CapacitorPageState extends State<CapacitorPage> {
     f.resistor = math.pow(10, potResistor1) * frequenciaCorte.resistor;
     f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
     f.frequencia = math.pow(10, potFrequencia) * frequenciaCorte.frequencia;
-    frequenciaCorte.capacitor = cs.calcular(f).capacitor;
+    frequenciaCorte.capacitor = cs.calcular(f, widget.escolha()).capacitor;
     f = new FrequenciaCorte();
   }
 

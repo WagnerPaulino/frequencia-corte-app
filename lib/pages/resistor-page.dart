@@ -8,7 +8,7 @@ import 'dart:math' as math;
 
 class ResistorPage extends StatefulWidget {
   ResistorPage({Key key, this.escolha}) : super(key: key);
-Function escolha;
+  Function escolha;
   @override
   _ResistorPageState createState() => _ResistorPageState();
 }
@@ -23,8 +23,8 @@ class _ResistorPageState extends State<ResistorPage> {
     FrequenciaCorte f = new FrequenciaCorte();
     f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
     f.frequencia = math.pow(10, potFrequencia) * frequenciaCorte.frequencia;
-    frequenciaCorte.resistor = rs.calcular(f).resistor;
-    frequenciaCorte.resistor2 = rs.calcular(f).resistor2;
+    frequenciaCorte.resistor = rs.calcular(f, widget.escolha()).resistor;
+    frequenciaCorte.resistor2 = rs.calcular(f, widget.escolha()).resistor2;
     f = new FrequenciaCorte();
   }
 

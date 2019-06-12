@@ -22,29 +22,29 @@ class MyApp extends StatelessWidget {
         return new ListBody(
           children: <Widget>[
             new DrawerHeader(
-            child: new Text("Níveis"),
-          ),
-          new ListTile(
-            title: new Text('Padrão'),
-            onTap: () {
-              nivel = Nivel.PADRAO;
-              Navigator.pop(context);
-            },
-          ),
-          new ListTile(
-            title: new Text('Alta'),
-            onTap: () {
-              nivel = Nivel.ALTA;
-              Navigator.pop(context);
-            },
-          ),
-          new ListTile(
-            title: new Text('Baixa'),
-            onTap: () {
-              nivel = Nivel.BAIXA;
-              Navigator.pop(context);
-            },
-          ),
+              child: new Text("Níveis"),
+            ),
+            new ListTile(
+              title: new Text('Padrão'),
+              onTap: () {
+                nivel = Nivel.PADRAO;
+                Navigator.pop(context);
+              },
+            ),
+            new ListTile(
+              title: new Text('Alta'),
+              onTap: () {
+                nivel = Nivel.ALTA;
+                Navigator.pop(context);
+              },
+            ),
+            new ListTile(
+              title: new Text('Baixa'),
+              onTap: () {
+                nivel = Nivel.BAIXA;
+                Navigator.pop(context);
+              },
+            ),
           ],
         );
       },
@@ -54,24 +54,23 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: DefaultTabController(
-        length: 3,
-        child: Scaffold(
-            appBar: AppBar(
-              bottom: TabBar(
-                tabs: [
-                  Tab(text: "FC"),
-                  Tab(text: "Capacitor"),
-                  Tab(text: "Resistor"),
-                ],
+        home: DefaultTabController(
+          length: 3,
+          child: Scaffold(
+              appBar: AppBar(
+                bottom: TabBar(
+                  tabs: [
+                    Tab(text: "FC"),
+                    Tab(text: "Capacitor"),
+                    Tab(text: "Resistor"),
+                  ],
+                ),
+                title: Text('Calculo'),
               ),
-              title: Text('Calculo'),
-            ),
-            drawer: getDrawerEscolha(),
-            body: MyHomePage()),
-      ),
-      debugShowCheckedModeBanner: false
-    );
+              drawer: getDrawerEscolha(),
+              body: MyHomePage()),
+        ),
+        debugShowCheckedModeBanner: false);
   }
 }
 

@@ -33,7 +33,7 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
       f.capacitor2 = math.pow(10, potCapacitor2) * frequenciaCorte.capacitor2;
       f.resistor2 = math.pow(10, potResistor2) * frequenciaCorte.resistor2;
     }
-    frequenciaCorte.frequencia = fcs.calcular(f).frequencia;
+    frequenciaCorte.frequencia = fcs.calcular(f, widget.escolha()).frequencia;
     f = new FrequenciaCorte();
   }
 

@@ -28,7 +28,7 @@ class ResistorService {
 
   resistorPassaBaixa(FrequenciaCorte c) {
     double resultado = 0;
-    if (c.capacitor != null && c.frequencia != null) {
+    if (c.capacitor != null && c.frequencia != null && c.capacitor2 != null) {
       resultado = 1 /
           (2 * math.pi * c.frequencia * math.sqrt(c.capacitor * c.capacitor2));
     } else {
@@ -36,6 +36,7 @@ class ResistorService {
       c.resistor2 = 0;
     }
     c.resistor = resultado;
+    c.resistor2 = 0;
     return c;
   }
 }

@@ -84,12 +84,18 @@ class _ResistorPageState extends State<ResistorPage> {
                           ? '0'
                           : frequenciaCorte.resistor.toString(),
                       textScaleFactor: 2),
-                  new Text("Resistor 2:", textScaleFactor: 2),
-                  new Text(
-                      frequenciaCorte.resistor == null
-                          ? '0'
-                          : frequenciaCorte.resistor2.toString(),
-                      textScaleFactor: 2),
+                  widget.escolha() == Nivel.ALTA ||
+                          widget.escolha() == Nivel.PADRAO
+                      ? new Text("Resistor 2:", textScaleFactor: 2)
+                      : new Container(height: 0),
+                  widget.escolha() == Nivel.ALTA ||
+                          widget.escolha() == Nivel.PADRAO
+                      ? new Text(
+                          frequenciaCorte.resistor2 == null
+                              ? '0'
+                              : frequenciaCorte.resistor2.toString(),
+                          textScaleFactor: 2)
+                      : new Container(height: 0),
                 ],
               ))),
       floatingActionButton: FloatingActionButton(

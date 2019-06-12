@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Utils {
-    static Map<int, String> potenciaMap = {
+  static Map<int, String> potenciaMap = {
     0: "Und",
     12: "Tera",
     9: "Giga",
@@ -19,5 +19,13 @@ class Utils {
           items.add(new DropdownMenuItem(value: value, child: new Text(label)))
         });
     return items;
+  }
+
+  isNull(value, rlc) {
+    if (value == null) {
+      return rlc;
+    } else {
+      return value;
+    }
   }
 }

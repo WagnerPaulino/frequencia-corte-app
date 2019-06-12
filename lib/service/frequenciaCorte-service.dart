@@ -16,15 +16,9 @@ class FrequenciaCorteService {
 
   FrequenciaCorte frequenciaPassaAlta(FrequenciaCorte frequencia) {
     double x = 0;
-    if (frequencia.capacitor != null &&
-        frequencia.resistor != null &&
-        frequencia.resistor2 != null) {
-      x = frequencia.resistor * frequencia.resistor2;
-      frequencia.frequencia =
-          1 / (2 * frequencia.pi * frequencia.capacitor * math.sqrt(x));
-    } else {
-      frequencia.frequencia = 0;
-    }
+    x = frequencia.resistor * frequencia.resistor2;
+    frequencia.frequencia =
+        1 / (2 * frequencia.pi * frequencia.capacitor * math.sqrt(x));
     return frequencia;
   }
 
@@ -32,15 +26,9 @@ class FrequenciaCorteService {
     double r = 0;
     double c = 0;
     double x = 0;
-    if (frequencia.resistor != null &&
-        frequencia.capacitor != null &&
-        frequencia.capacitor2 != null) {
-      r = frequencia.resistor;
-      c = frequencia.capacitor * frequencia.capacitor2;
-      frequencia.frequencia = 1 / (2 * frequencia.pi * r * math.sqrt(c));
-    } else {
-      frequencia.frequencia = 0;
-    }
+    r = frequencia.resistor;
+    c = frequencia.capacitor * frequencia.capacitor2;
+    frequencia.frequencia = 1 / (2 * frequencia.pi * r * math.sqrt(c));
     return frequencia;
   }
 }

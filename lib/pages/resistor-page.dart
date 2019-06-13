@@ -18,13 +18,19 @@ class ResistorPage extends StatefulWidget {
 class _ResistorPageState extends State<ResistorPage> {
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
   ResistorService rs = new ResistorService();
+  Utils u = new Utils();
+
   num potFrequencia = 0.0;
   num potCapacitor = 0.0;
-
+  num potCapacitor2 = 0.0;
   calcula() {
     FrequenciaCorte f = new FrequenciaCorte();
-    f.capacitor = math.pow(10, potCapacitor) * frequenciaCorte.capacitor;
-    f.frequencia = math.pow(10, potFrequencia) * frequenciaCorte.frequencia;
+    f.capacitor =
+        math.pow(10, potCapacitor) * u.isNull(frequenciaCorte.capacitor, 0.0);
+    f.capacitor2 =
+        math.pow(10, potCapacitor2) * u.isNull(frequenciaCorte.capacitor2, 0.0);
+    f.frequencia =
+        math.pow(10, potFrequencia) * u.isNull(frequenciaCorte.frequencia, 0.0);
     frequenciaCorte.resistor = rs.calcular(f, widget.escolha()).resistor;
     frequenciaCorte.resistor2 = rs.calcular(f, widget.escolha()).resistor2;
     f = new FrequenciaCorte();
@@ -47,22 +53,37 @@ class _ResistorPageState extends State<ResistorPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
+                  //Capacitor
                   new Text("Capacitor:"),
                   new TextField(
                     onChanged: (v) {
                       frequenciaCorte.capacitor = double.parse(v);
                     },
                   ),
+                  //Capacitor2
+                  nivel == Nivel.BAIXA
+                      ? new Text("Capacitor:2")
+                      : new Container(height: 0),
+                  nivel == Nivel.BAIXA
+                      ? new TextField(
+                          onChanged: (v) {
+                            frequenciaCorte.capacitor2 = double.parse(v);
+                          },
+                        )
+                      : new Container(height: 0),
+                  //Frequencia
                   new Text("Frequencia de Corte:"),
                   new TextField(
                     onChanged: (v) {
                       frequenciaCorte.frequencia = double.parse(v);
                     },
                   ),
+                  //Potencias
                   new Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
+                      //Capacitor
                       new Text("Capacitor: "),
                       new Expanded(
                           child: new DropdownButton(
@@ -74,6 +95,7 @@ class _ResistorPageState extends State<ResistorPage> {
                           });
                         },
                       )),
+                      //Frequencia
                       new Text("Frequencia: "),
                       new Expanded(
                           child: new DropdownButton(
@@ -85,6 +107,28 @@ class _ResistorPageState extends State<ResistorPage> {
                           });
                         },
                       ))
+                    ],
+                  ),
+                  new Row(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      //Capacitor2
+                      nivel == Nivel.BAIXA
+                          ? new Text("Capacitor2: ")
+                          : new Container(height: 0),
+                      nivel == Nivel.BAIXA
+                          ? new Expanded(
+                              child: new DropdownButton(
+                              value: potCapacitor2,
+                              items: Utils.getDropDownMenuItems(),
+                              onChanged: (t) {
+                                this.setState(() {
+                                  potCapacitor2 = t;
+                                });
+                              },
+                            ))
+                          : new Container(height: 0),
                     ],
                   ),
                   new Text("Resistor 1:", textScaleFactor: 2),

@@ -49,6 +49,12 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    callbacks = [];
+    super.dispose();
+  }
+
   isEnable() {
     if (frequenciaCorte.capacitor != 0 && frequenciaCorte.resistor != 0) {
       this.setState(() => this.enabled = true);
@@ -201,7 +207,6 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
           if (this.frequenciaCorte.capacitor != null &&
               this.frequenciaCorte.resistor != null) {
             setState(() {
-              print(widget.escolha().toString());
               this.calcula();
             });
           }

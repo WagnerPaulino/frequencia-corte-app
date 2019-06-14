@@ -44,6 +44,12 @@ class _CapacitorPageState extends State<CapacitorPage> {
   }
 
   @override
+  void dispose() {
+    callbacks = [];
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: new SingleChildScrollView(
@@ -149,14 +155,9 @@ class _CapacitorPageState extends State<CapacitorPage> {
               ))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          if (this.frequenciaCorte.resistor != null &&
-              this.frequenciaCorte.resistor2 != null &&
-              this.frequenciaCorte.frequencia != null) {
-            setState(() {
-              print(widget.escolha().toString());
-              this.calcula();
-            });
-          }
+          setState(() {
+            this.calcula();
+          });
         },
         tooltip: 'CALCULAR',
         child: new Icon(Icons.border_color),

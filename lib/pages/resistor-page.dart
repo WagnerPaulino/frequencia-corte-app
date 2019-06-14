@@ -44,6 +44,12 @@ class _ResistorPageState extends State<ResistorPage> {
   }
 
   @override
+  void dispose() {
+    callbacks = [];
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: new SingleChildScrollView(
@@ -154,7 +160,6 @@ class _ResistorPageState extends State<ResistorPage> {
           if (this.frequenciaCorte.capacitor != null &&
               this.frequenciaCorte.frequencia != null) {
             setState(() {
-              print(widget.escolha().toString());
               this.calcula();
             });
           }

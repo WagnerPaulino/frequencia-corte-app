@@ -30,10 +30,8 @@ class CapacitorService {
         (2 *
             math.pi *
             frequencia.frequencia *
-            frequencia.resistor *
-            math.sqrt(2));
-    frequencia.capacitor = resultado;
-    frequencia.capacitor2 = resultado * 1.9994;
+            math.sqrt(frequencia.capacitor * frequencia.capacitor2));
+    frequencia.resistor = resultado;
     return frequencia;
   }
 }

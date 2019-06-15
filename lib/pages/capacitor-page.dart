@@ -17,6 +17,9 @@ class CapacitorPage extends StatefulWidget {
 
 class _CapacitorPageState extends State<CapacitorPage> {
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
+  FrequenciaCorte frequenciaCorteA = new FrequenciaCorte();
+  FrequenciaCorte frequenciaCorteB = new FrequenciaCorte();
+  FrequenciaCorte frequenciaCorteR = new FrequenciaCorte();
   CapacitorService cs = new CapacitorService();
   Utils u = new Utils();
   num potFrequencia = 0.0;
@@ -27,18 +30,22 @@ class _CapacitorPageState extends State<CapacitorPage> {
 
   calcula() {
     FrequenciaCorte f = new FrequenciaCorte();
+    if (widget.escolha() == Nivel.ALTA) {
+      frequenciaCorte = frequenciaCorteA;
+    } else {
+      frequenciaCorte = frequenciaCorteB;
+    }
     f.resistor =
         math.pow(10, potResistor1) * u.isNull(frequenciaCorte.resistor, 0.0);
     f.resistor2 =
         math.pow(10, potResistor2) * u.isNull(frequenciaCorte.resistor2, 0.0);
     f.capacitor =
-        math.pow(10, potCapacitor1) * u.isNull(frequenciaCorte.capacitor,0.0);
+        math.pow(10, potCapacitor1) * u.isNull(frequenciaCorte.capacitor, 0.0);
     f.capacitor2 =
         math.pow(10, potCapacitor2) * u.isNull(frequenciaCorte.capacitor2, 0.0);
     f.frequencia =
         math.pow(10, potFrequencia) * u.isNull(frequenciaCorte.frequencia, 0.0);
-    frequenciaCorte.capacitor = cs.calcular(f, widget.escolha()).capacitor;
-    frequenciaCorte.capacitor2 = cs.calcular(f, widget.escolha()).capacitor2;
+    frequenciaCorteR = cs.calcular(f, widget.escolha());
     f = new FrequenciaCorte();
   }
 
@@ -65,53 +72,78 @@ class _CapacitorPageState extends State<CapacitorPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  //Resistor1
-                  new Text("Resistor1(R1):"),
-                  new TextField(
-                    onChanged: (v) {
-                      frequenciaCorte.resistor = double.parse(v);
-                    },
-                  ),
-                  //Resistor2
-                  new Text("Resistor2(R2):"),
-                  new TextField(
-                    onChanged: (v) {
-                      frequenciaCorte.resistor2 = double.parse(v);
-                    },
-                  ),
-                  //Frequencia
+                  widget.escolha() == Nivel.ALTA
+                      ? new Text("Resistor1(R1):")
+                      : new Text("Capacitor1(R1)"),
+                  widget.escolha() == Nivel.ALTA
+                      ? new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteA.resistor = double.parse(v);
+                          },
+                        )
+                      : new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteB.capacitor = double.parse(v);
+                          },
+                        ),
+                  widget.escolha() == Nivel.ALTA
+                      ? new Text("Resistor2(R2):")
+                      : new Text("Capacitor2(R2)"),
+                  widget.escolha() == Nivel.ALTA
+                      ? new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteA.resistor2 = double.parse(v);
+                          },
+                        )
+                      : new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteB.capacitor2 = double.parse(v);
+                          },
+                        ),
                   new Text("Frequencia de Corte(FC):"),
-                  new TextField(
-                    onChanged: (v) {
-                      frequenciaCorte.frequencia = double.parse(v);
-                    },
-                  ),
+                  widget.escolha() == Nivel.ALTA
+                      ? new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteA.frequencia = double.parse(v);
+                          },
+                        )
+                      : new TextField(
+                          onChanged: (v) {
+                            frequenciaCorteB.frequencia = double.parse(v);
+                          },
+                        ),
                   //Potencias
                   new Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      //Resistor1
-                      new Text("Resistor1: "),
+                      widget.escolha() == Nivel.ALTA
+                          ? new Text("Resistor1: ")
+                          : new Text("Capacitor1: "),
                       new Expanded(
                           child: new DropdownButton(
                         value: potResistor1,
                         items: Utils.getDropDownMenuItems(),
                         onChanged: (t) {
                           this.setState(() {
-                            potResistor1 = t;
+                            widget.escolha() == Nivel.ALTA
+                                ? potResistor1 = t
+                                : potCapacitor1 = t;
                           });
                         },
                       )),
-                      //Resistor2
-                      new Text("Resistor2: "),
+                      widget.escolha() == Nivel.ALTA
+                          ? new Text("Resistor2: ")
+                          : new Text("Capacitor2: "),
                       new Expanded(
                           child: new DropdownButton(
                         value: potFrequencia,
                         items: Utils.getDropDownMenuItems(),
                         onChanged: (t) {
                           this.setState(() {
-                            potResistor2 = t;
+                            widget.escolha() == Nivel.ALTA
+                                ? potResistor2 = t
+                                : potCapacitor2 = t;
                           });
                         },
                       )),
@@ -133,11 +165,13 @@ class _CapacitorPageState extends State<CapacitorPage> {
                       )),
                     ],
                   ),
-                  new Text("Capacitor:", textScaleFactor: 2),
+                  widget.escolha() == Nivel.ALTA
+                      ? new Text("Capacitor:", textScaleFactor: 2)
+                      : new Text("Resistor:", textScaleFactor: 2),
                   new Text(
-                      frequenciaCorte.capacitor == null
-                          ? '0'
-                          : frequenciaCorte.capacitor.toString(),
+                      widget.escolha() == Nivel.ALTA
+                          ? u.isNull(frequenciaCorteR.capacitor, 0.0).toString()
+                          : u.isNull(frequenciaCorteR.resistor, 0.0).toString(),
                       textScaleFactor: 2)
                 ],
               ))),

@@ -25,7 +25,6 @@ class FrequenciaCorteService {
   FrequenciaCorte frequenciaPassaBaixa(FrequenciaCorte frequencia) {
     double r = 0;
     double c = 0;
-    double x = 0;
     r = frequencia.resistor;
     c = frequencia.capacitor * frequencia.capacitor2;
     frequencia.frequencia = 1 / (2 * frequencia.pi * r * math.sqrt(c));

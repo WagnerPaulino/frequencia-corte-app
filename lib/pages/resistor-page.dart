@@ -167,7 +167,7 @@ class _ResistorPageState extends State<ResistorPage> {
           setState(() {
             this._formKey.currentState.save();
             this.calcula();
-            this._formKey.currentState.reset();
+            // this._formKey.currentState.reset();
           });
         },
         tooltip: 'CALCULAR',

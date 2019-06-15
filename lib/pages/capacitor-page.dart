@@ -192,7 +192,7 @@ class _CapacitorPageState extends State<CapacitorPage> {
           setState(() {
             this._formKey.currentState.save();
             this.calcula();
-            this._formKey.currentState.reset();
+            // this._formKey.currentState.reset();
           });
         },
         tooltip: 'CALCULAR',

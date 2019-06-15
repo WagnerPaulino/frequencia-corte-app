@@ -210,7 +210,7 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
           setState(() {
             this._formKey.currentState.save();
             this.calcula();
-            this._formKey.currentState.reset();
+            // this._formKey.currentState.reset();
           });
         },
         tooltip: 'CALCULAR',

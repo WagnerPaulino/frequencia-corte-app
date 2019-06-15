@@ -2,6 +2,8 @@ import 'package:calculo/enums/niveis.dart';
 import 'package:calculo/model/frequencia-corte.dart';
 import 'package:calculo/pages/capacitor-page.dart';
 import 'package:calculo/pages/frequencia-corte-page.dart';
+import 'package:calculo/pages/ganho-page.dart';
+import 'package:calculo/pages/resistor-apl-page.dart';
 import 'package:calculo/pages/resistor-page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -44,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage>
   final List<Tab> myTabs = <Tab>[
     Tab(text: "FC"),
     Tab(text: "Capacitor"),
-    Tab(text: "Resistor")
+    Tab(text: "Resistor"),
+    Tab(text: "Ganho"),
+    Tab(text: "Resistencia")
   ];
 
   @override
@@ -83,7 +87,9 @@ class _MyHomePageState extends State<MyHomePage>
                 children: [
                   new FrequenciaCortePage(escolha: getEscolha),
                   new CapacitorPage(escolha: getEscolha),
-                  new ResistorPage(escolha: getEscolha)
+                  new ResistorPage(escolha: getEscolha),
+                  new GanhoPage(),
+                  new ResistorAplPage()
                 ],
                 controller: _tabController,
               )),

@@ -70,31 +70,35 @@ class _ResistorPageState extends State<ResistorPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       widget.escolha() == Nivel.ALTA
-                          ? new Text("Capacitor:")
-                          : new Text("Resistor:"),
-                      widget.escolha() == Nivel.ALTA
                           ? new TextFormField(
                               onSaved: (v) {
                                 frequenciaCorteA.capacitor = double.parse(v);
                               },
-                            )
+                              decoration: const InputDecoration(
+                                labelText: 'Capacitor',
+                              ))
                           : new TextFormField(
                               onSaved: (v) {
                                 frequenciaCorteB.resistor = double.parse(v);
                               },
-                            ),
-                      new Text("Frequencia de Corte:"),
+                              decoration: const InputDecoration(
+                                labelText: 'Resistor',
+                              )),
                       widget.escolha() == Nivel.ALTA
                           ? new TextFormField(
                               onSaved: (v) {
                                 frequenciaCorteA.frequencia = double.parse(v);
                               },
-                            )
+                              decoration: const InputDecoration(
+                                labelText: 'Frequencia de Corte',
+                              ))
                           : new TextFormField(
                               onSaved: (v) {
                                 frequenciaCorteB.frequencia = double.parse(v);
                               },
-                            ),
+                              decoration: const InputDecoration(
+                                labelText: 'Frequencia de Corte',
+                              )),
                       //Potencias
                       new Row(
                         mainAxisSize: MainAxisSize.min,

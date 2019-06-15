@@ -76,65 +76,50 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       widget.escolha() == Nivel.ALTA
-                          ? new Text("Resistor1(R1): ", textScaleFactor: 1)
-                          : new Text("Capacitor1(C1): ", textScaleFactor: 1),
-                      widget.escolha() == Nivel.ALTA
                           ? new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteA.resistor = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black))
+                              decoration: const InputDecoration(
+                                labelText: 'Resistor1(R1)',
+                              ))
                           : new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteB.capacitor = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black)),
-                      widget.escolha() == Nivel.ALTA
-                          ? new Text("Resistor2(R2): ", textScaleFactor: 1)
-                          : new Text("Capacitor2(C2): ", textScaleFactor: 1),
+                              decoration: const InputDecoration(
+                                labelText: 'Capacitor1(C1)',
+                              )),
                       widget.escolha() == Nivel.ALTA
                           ? new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteA.resistor2 = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black))
+                              decoration: const InputDecoration(
+                                labelText: 'Resistor2(R2)',
+                              ))
                           : new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteB.capacitor2 = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black)),
-                      widget.escolha() == Nivel.ALTA
-                          ? new Text("Capacitor: ", textScaleFactor: 1)
-                          : new Text("Resistor: ", textScaleFactor: 1),
+                              decoration: const InputDecoration(
+                                labelText: 'Capacitor2(C2)',
+                              )),
                       widget.escolha() == Nivel.ALTA
                           ? new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteA.capacitor = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black))
+                              decoration: const InputDecoration(
+                                labelText: 'Capacitor',
+                              ))
                           : new TextFormField(
                               onSaved: (t) {
                                 frequenciaCorteB.resistor = double.parse(t);
                               },
-                              style: new TextStyle(
-                                  fontSize: 25.0,
-                                  height: 1.0,
-                                  color: Colors.black)),
+                              decoration: const InputDecoration(
+                                labelText: 'Resistor',
+                              )),
                       //Potencias
                       new Row(
                         mainAxisSize: MainAxisSize.min,

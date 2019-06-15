@@ -76,45 +76,50 @@ class _CapacitorPageState extends State<CapacitorPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     widget.escolha() == Nivel.ALTA
-                        ? new Text("Resistor1(R1):")
-                        : new Text("Capacitor1(R1)"),
-                    widget.escolha() == Nivel.ALTA
                         ? new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteA.resistor = double.parse(v);
                             },
-                          )
+                            decoration: const InputDecoration(
+                              labelText: 'Resistor1(R1)',
+                            ))
                         : new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteB.capacitor = double.parse(v);
                             },
-                          ),
-                    widget.escolha() == Nivel.ALTA
-                        ? new Text("Resistor2(R2):")
-                        : new Text("Capacitor2(R2)"),
+                            decoration: const InputDecoration(
+                              labelText: 'Capacitor1(C1)',
+                            )),
                     widget.escolha() == Nivel.ALTA
                         ? new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteA.resistor2 = double.parse(v);
                             },
-                          )
+                            decoration: const InputDecoration(
+                              labelText: 'Resistor2(R2)',
+                            ))
                         : new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteB.capacitor2 = double.parse(v);
                             },
-                          ),
-                    new Text("Frequencia de Corte(FC):"),
+                            decoration: const InputDecoration(
+                              labelText: 'Capacitor2(C2)',
+                            )),
                     widget.escolha() == Nivel.ALTA
                         ? new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteA.frequencia = double.parse(v);
                             },
-                          )
+                            decoration: const InputDecoration(
+                              labelText: 'Frequencia de Corte',
+                            ))
                         : new TextFormField(
                             onSaved: (v) {
                               frequenciaCorteB.frequencia = double.parse(v);
                             },
-                          ),
+                            decoration: const InputDecoration(
+                              labelText: 'Frequencia de Corte',
+                            )),
                     //Potencias
                     new Row(
                       mainAxisSize: MainAxisSize.min,

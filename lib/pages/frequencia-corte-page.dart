@@ -18,6 +18,7 @@ class FrequenciaCortePage extends StatefulWidget {
 }
 
 class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
+  final _formKey = GlobalKey<FormState>();
   FrequenciaCorteService fcs = new FrequenciaCorteService();
   FrequenciaCorte frequenciaCorte = new FrequenciaCorte();
   FrequenciaCorte frequenciaCorteA = new FrequenciaCorte();
@@ -66,137 +67,144 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: new SingleChildScrollView(
-          child: new Padding(
-              padding: const EdgeInsets.all(30.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  widget.escolha() == Nivel.ALTA
-                      ? new Text("Resistor1(R1): ", textScaleFactor: 1)
-                      : new Text("Capacitor1(C1): ", textScaleFactor: 1),
-                  widget.escolha() == Nivel.ALTA
-                      ? new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteA.resistor = double.parse(t);
-                          },
-                          onSubmitted: (a) {
-                            print("s");
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0, height: 1.0, color: Colors.black))
-                      : new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteB.capacitor = double.parse(t);
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0,
-                              height: 1.0,
-                              color: Colors.black)),
-                  widget.escolha() == Nivel.ALTA
-                      ? new Text("Resistor2(R2): ", textScaleFactor: 1)
-                      : new Text("Capacitor2(C2): ", textScaleFactor: 1),
-                  widget.escolha() == Nivel.ALTA
-                      ? new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteA.resistor2 = double.parse(t);
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0, height: 1.0, color: Colors.black))
-                      : new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteB.capacitor2 = double.parse(t);
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0,
-                              height: 1.0,
-                              color: Colors.black)),
-                  widget.escolha() == Nivel.ALTA
-                      ? new Text("Capacitor: ", textScaleFactor: 1)
-                      : new Text("Resistor: ", textScaleFactor: 1),
-                  widget.escolha() == Nivel.ALTA
-                      ? new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteA.capacitor = double.parse(t);
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0, height: 1.0, color: Colors.black))
-                      : new TextField(
-                          onChanged: (t) {
-                            frequenciaCorteB.resistor = double.parse(t);
-                          },
-                          style: new TextStyle(
-                              fontSize: 25.0,
-                              height: 1.0,
-                              color: Colors.black)),
-                  //Potencias
-                  new Row(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+          child: Form(
+              key: _formKey,
+              child: new Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
                       widget.escolha() == Nivel.ALTA
-                          ? new Text("Resistor1: ", textScaleFactor: 1)
-                          : new Text("Capacitor1: ", textScaleFactor: 1),
-                      new Expanded(
-                          child: new DropdownButton(
-                        value: potResistor1,
-                        items: Utils.getDropDownMenuItems(),
-                        onChanged: (t) {
-                          this.setState(() {
-                            widget.escolha() == Nivel.ALTA
-                                ? potResistor1 = t
-                                : potCapacitor1 = t;
-                          });
-                        },
-                      )),
+                          ? new Text("Resistor1(R1): ", textScaleFactor: 1)
+                          : new Text("Capacitor1(C1): ", textScaleFactor: 1),
                       widget.escolha() == Nivel.ALTA
-                          ? new Text("Resistor2: ", textScaleFactor: 1)
-                          : new Text("Capacitor2: ", textScaleFactor: 1),
-                      new Expanded(
-                          child: new DropdownButton(
-                        value: potResistor1,
-                        items: Utils.getDropDownMenuItems(),
-                        onChanged: (t) {
-                          this.setState(() {
+                          ? new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteA.resistor = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black))
+                          : new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteB.capacitor = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black)),
+                      widget.escolha() == Nivel.ALTA
+                          ? new Text("Resistor2(R2): ", textScaleFactor: 1)
+                          : new Text("Capacitor2(C2): ", textScaleFactor: 1),
+                      widget.escolha() == Nivel.ALTA
+                          ? new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteA.resistor2 = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black))
+                          : new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteB.capacitor2 = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black)),
+                      widget.escolha() == Nivel.ALTA
+                          ? new Text("Capacitor: ", textScaleFactor: 1)
+                          : new Text("Resistor: ", textScaleFactor: 1),
+                      widget.escolha() == Nivel.ALTA
+                          ? new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteA.capacitor = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black))
+                          : new TextFormField(
+                              onSaved: (t) {
+                                frequenciaCorteB.resistor = double.parse(t);
+                              },
+                              style: new TextStyle(
+                                  fontSize: 25.0,
+                                  height: 1.0,
+                                  color: Colors.black)),
+                      //Potencias
+                      new Row(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          widget.escolha() == Nivel.ALTA
+                              ? new Text("Resistor1: ", textScaleFactor: 1)
+                              : new Text("Capacitor1: ", textScaleFactor: 1),
+                          new Expanded(
+                              child: new DropdownButton(
+                            value: potResistor1,
+                            items: Utils.getDropDownMenuItems(),
+                            onChanged: (t) {
+                              this.setState(() {
+                                widget.escolha() == Nivel.ALTA
+                                    ? potResistor1 = t
+                                    : potCapacitor1 = t;
+                              });
+                            },
+                          )),
+                          widget.escolha() == Nivel.ALTA
+                              ? new Text("Resistor2: ", textScaleFactor: 1)
+                              : new Text("Capacitor2: ", textScaleFactor: 1),
+                          new Expanded(
+                              child: new DropdownButton(
+                            value: potResistor1,
+                            items: Utils.getDropDownMenuItems(),
+                            onChanged: (t) {
+                              this.setState(() {
+                                widget.escolha() == Nivel.ALTA
+                                    ? potResistor2 = t
+                                    : potCapacitor2 = t;
+                              });
+                            },
+                          )),
+                        ],
+                      ),
+                      new Row(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: <Widget>[
                             widget.escolha() == Nivel.ALTA
-                                ? potResistor2 = t
-                                : potCapacitor2 = t;
-                          });
-                        },
-                      )),
+                                ? new Text("Capacitor: ")
+                                : new Text("Resistor: "),
+                            new Expanded(
+                                child: new DropdownButton(
+                              value: potCapacitor1,
+                              items: Utils.getDropDownMenuItems(),
+                              onChanged: (t) {
+                                this.setState(() {
+                                  widget.escolha() == Nivel.ALTA
+                                      ? potCapacitor1 = t
+                                      : potResistor1 = t;
+                                });
+                              },
+                            )),
+                          ]),
+                      //Resultado
+                      new Text("Freq. De Corte", textScaleFactor: 2),
+                      new Text(
+                          u.isNull(frequenciaCorteR.frequencia, 0.0).toString(),
+                          textScaleFactor: 2),
                     ],
-                  ),
-                  new Row(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        widget.escolha() == Nivel.ALTA
-                            ? new Text("Capacitor: ")
-                            : new Text("Resistor: "),
-                        new Expanded(
-                            child: new DropdownButton(
-                          value: potCapacitor1,
-                          items: Utils.getDropDownMenuItems(),
-                          onChanged: (t) {
-                            this.setState(() {
-                              widget.escolha() == Nivel.ALTA
-                                  ? potCapacitor1 = t
-                                  : potResistor1 = t;
-                            });
-                          },
-                        )),
-                      ]),
-                  //Resultado
-                  new Text("Freq. De Corte", textScaleFactor: 2),
-                  new Text(
-                      u.isNull(frequenciaCorteR.frequencia, 0.0).toString(),
-                      textScaleFactor: 2),
-                ],
-              ))),
+                  )))),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           setState(() {
+            this._formKey.currentState.save();
             this.calcula();
+            this._formKey.currentState.reset();
           });
         },
         tooltip: 'CALCULAR',

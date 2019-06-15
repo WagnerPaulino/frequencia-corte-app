@@ -66,17 +66,6 @@ class _ResistorPageState extends State<ResistorPage> {
                       frequenciaCorte.capacitor = double.parse(v);
                     },
                   ),
-                  //Capacitor2
-                  nivel == Nivel.BAIXA
-                      ? new Text("Capacitor:2")
-                      : new Container(height: 0),
-                  nivel == Nivel.BAIXA
-                      ? new TextField(
-                          onChanged: (v) {
-                            frequenciaCorte.capacitor2 = double.parse(v);
-                          },
-                        )
-                      : new Container(height: 0),
                   //Frequencia
                   new Text("Frequencia de Corte:"),
                   new TextField(
@@ -118,24 +107,7 @@ class _ResistorPageState extends State<ResistorPage> {
                   new Row(
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      //Capacitor2
-                      nivel == Nivel.BAIXA
-                          ? new Text("Capacitor2: ")
-                          : new Container(height: 0),
-                      nivel == Nivel.BAIXA
-                          ? new Expanded(
-                              child: new DropdownButton(
-                              value: potCapacitor2,
-                              items: Utils.getDropDownMenuItems(),
-                              onChanged: (t) {
-                                this.setState(() {
-                                  potCapacitor2 = t;
-                                });
-                              },
-                            ))
-                          : new Container(height: 0),
-                    ],
+                    children: <Widget>[],
                   ),
                   new Text("Resistor 1:", textScaleFactor: 2),
                   new Text(

@@ -22,6 +22,8 @@ class _CapacitorPageState extends State<CapacitorPage> {
   num potFrequencia = 0.0;
   num potResistor1 = 0.0;
   num potResistor2 = 0.0;
+  num potCapacitor1 = 0.0;
+  num potCapacitor2 = 0.0;
 
   calcula() {
     FrequenciaCorte f = new FrequenciaCorte();
@@ -29,6 +31,10 @@ class _CapacitorPageState extends State<CapacitorPage> {
         math.pow(10, potResistor1) * u.isNull(frequenciaCorte.resistor, 0.0);
     f.resistor2 =
         math.pow(10, potResistor2) * u.isNull(frequenciaCorte.resistor2, 0.0);
+    f.capacitor =
+        math.pow(10, potCapacitor1) * u.isNull(frequenciaCorte.capacitor,0.0);
+    f.capacitor2 =
+        math.pow(10, potCapacitor2) * u.isNull(frequenciaCorte.capacitor2, 0.0);
     f.frequencia =
         math.pow(10, potFrequencia) * u.isNull(frequenciaCorte.frequencia, 0.0);
     frequenciaCorte.capacitor = cs.calcular(f, widget.escolha()).capacitor;
@@ -67,16 +73,12 @@ class _CapacitorPageState extends State<CapacitorPage> {
                     },
                   ),
                   //Resistor2
-                  nivel == Nivel.ALTA
-                      ? new Text("Resistor2(R2):")
-                      : new Container(height: 0),
-                  nivel == Nivel.ALTA
-                      ? new TextField(
-                          onChanged: (v) {
-                            frequenciaCorte.resistor2 = double.parse(v);
-                          },
-                        )
-                      : new Container(height: 0),
+                  new Text("Resistor2(R2):"),
+                  new TextField(
+                    onChanged: (v) {
+                      frequenciaCorte.resistor2 = double.parse(v);
+                    },
+                  ),
                   //Frequencia
                   new Text("Frequencia de Corte(FC):"),
                   new TextField(
@@ -102,21 +104,17 @@ class _CapacitorPageState extends State<CapacitorPage> {
                         },
                       )),
                       //Resistor2
-                      nivel == Nivel.ALTA
-                          ? new Text("Resistor2: ")
-                          : new Container(height: 0),
-                      nivel == Nivel.ALTA
-                          ? new Expanded(
-                              child: new DropdownButton(
-                              value: potFrequencia,
-                              items: Utils.getDropDownMenuItems(),
-                              onChanged: (t) {
-                                this.setState(() {
-                                  potResistor2 = t;
-                                });
-                              },
-                            ))
-                          : new Container(height: 0),
+                      new Text("Resistor2: "),
+                      new Expanded(
+                          child: new DropdownButton(
+                        value: potFrequencia,
+                        items: Utils.getDropDownMenuItems(),
+                        onChanged: (t) {
+                          this.setState(() {
+                            potResistor2 = t;
+                          });
+                        },
+                      )),
                     ],
                   ),
                   new Row(
@@ -140,17 +138,7 @@ class _CapacitorPageState extends State<CapacitorPage> {
                       frequenciaCorte.capacitor == null
                           ? '0'
                           : frequenciaCorte.capacitor.toString(),
-                      textScaleFactor: 2),
-                  nivel == Nivel.BAIXA
-                      ? new Text("Capacitor2:", textScaleFactor: 2)
-                      : new Container(height: 0),
-                  nivel == Nivel.BAIXA
-                      ? new Text(
-                          frequenciaCorte.capacitor2 == null
-                              ? '0'
-                              : frequenciaCorte.capacitor2.toString(),
-                          textScaleFactor: 2)
-                      : new Container(height: 0),
+                      textScaleFactor: 2)
                 ],
               ))),
       floatingActionButton: FloatingActionButton(

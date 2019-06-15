@@ -105,7 +105,9 @@ class _ResistorPageState extends State<ResistorPage> {
                               : new Text("Resistor: "),
                           new Expanded(
                               child: new DropdownButton(
-                            value: potCapacitor,
+                            value: widget.escolha() == Nivel.ALTA
+                                ? potCapacitor
+                                : potResistor,
                             items: Utils.getDropDownMenuItems(),
                             onChanged: (t) {
                               this.setState(() {

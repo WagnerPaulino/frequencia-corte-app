@@ -145,7 +145,9 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
                               : new Text("Capacitor1: ", textScaleFactor: 1),
                           new Expanded(
                               child: new DropdownButton(
-                            value: potResistor1,
+                            value: widget.escolha() == Nivel.ALTA
+                                ? potResistor1
+                                : potCapacitor1,
                             items: Utils.getDropDownMenuItems(),
                             onChanged: (t) {
                               this.setState(() {
@@ -160,7 +162,9 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
                               : new Text("Capacitor2: ", textScaleFactor: 1),
                           new Expanded(
                               child: new DropdownButton(
-                            value: potResistor1,
+                            value: widget.escolha() == Nivel.ALTA
+                                ? potResistor2
+                                : potCapacitor2,
                             items: Utils.getDropDownMenuItems(),
                             onChanged: (t) {
                               this.setState(() {
@@ -181,7 +185,9 @@ class _FrequenciaCortePageState extends State<FrequenciaCortePage> {
                                 : new Text("Resistor: "),
                             new Expanded(
                                 child: new DropdownButton(
-                              value: potCapacitor1,
+                              value: widget.escolha() == Nivel.ALTA
+                                  ? potCapacitor1
+                                  : potResistor1,
                               items: Utils.getDropDownMenuItems(),
                               onChanged: (t) {
                                 this.setState(() {

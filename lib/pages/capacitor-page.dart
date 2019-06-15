@@ -125,7 +125,9 @@ class _CapacitorPageState extends State<CapacitorPage> {
                             : new Text("Capacitor1: "),
                         new Expanded(
                             child: new DropdownButton(
-                          value: potResistor1,
+                          value: widget.escolha() == Nivel.ALTA
+                              ? potResistor1
+                              : potCapacitor1,
                           items: Utils.getDropDownMenuItems(),
                           onChanged: (t) {
                             this.setState(() {
@@ -140,7 +142,9 @@ class _CapacitorPageState extends State<CapacitorPage> {
                             : new Text("Capacitor2: "),
                         new Expanded(
                             child: new DropdownButton(
-                          value: potFrequencia,
+                          value: widget.escolha() == Nivel.ALTA
+                              ? potResistor2
+                              : potCapacitor2,
                           items: Utils.getDropDownMenuItems(),
                           onChanged: (t) {
                             this.setState(() {

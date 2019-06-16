@@ -77,6 +77,7 @@ class _MyHomePageState extends State<MyHomePage>
           child: Scaffold(
               appBar: AppBar(
                 bottom: TabBar(
+                  isScrollable: true,
                   tabs: myTabs,
                   controller: _tabController,
                 ),
